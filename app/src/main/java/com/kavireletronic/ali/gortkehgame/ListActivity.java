@@ -2,6 +2,7 @@ package com.kavireletronic.ali.gortkehgame;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +30,28 @@ public class ListActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private LayoutAnimationController animationController;
     private SharedPreferences SP;
+    private boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            finish();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        MDToast mdToast= MDToast.makeText(getApplicationContext(),getString(R.string.twice_click),MDToast.LENGTH_SHORT,MDToast.TYPE_INFO);
+        mdToast.show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

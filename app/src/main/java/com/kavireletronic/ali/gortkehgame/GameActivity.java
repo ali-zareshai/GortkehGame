@@ -48,13 +48,30 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private SharedPreferences SP;
     private static SharedPreferences.Editor editor;
     private Vibrator vibrator;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(getApplicationContext(),ListActivity.class));
-        customType(GameActivity.this,"fadein-to-fadeout");
-        finish();
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            startActivity(new Intent(getApplicationContext(),ListActivity.class));
+            customType(GameActivity.this,"fadein-to-fadeout");
+            finish();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        MDToast mdToast= MDToast.makeText(getApplicationContext(),getString(R.string.twice_click),MDToast.LENGTH_SHORT,MDToast.TYPE_INFO);
+        mdToast.show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+
     }
 
     @Override

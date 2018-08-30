@@ -10,5 +10,7 @@
     <string name="badjavab">بیشتر دقت کن</string>
     <string name="not_access">شما اجازه دسترسی به این مرحله ندارید</string>
     <string name="gorteh">چرتکه</string>
+    <string name="twice_click">برای خروج دوبار فشار دهید</string>
     <string name="insert_ahdad">لطفا جواب را وارد کنید</string>
+    <string name="develop">Developer:\n ali-zareshahi@outlook.com</string>
 </resources>
