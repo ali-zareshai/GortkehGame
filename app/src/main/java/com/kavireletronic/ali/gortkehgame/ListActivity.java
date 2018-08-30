@@ -1,6 +1,8 @@
 package com.kavireletronic.ali.gortkehgame;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,12 +26,15 @@ public class ListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private LayoutAnimationController animationController;
+    private SharedPreferences SP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         recyclerView=(RecyclerView)findViewById(R.id.recycle);
+
+        SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         layoutManager=new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -44,6 +49,7 @@ public class ListActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         recyclerView.setAdapter(listAdapter);
+        recyclerView.scrollToPosition(SP.getInt("level_user",1)-1);
 
     }
 

@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     tools:context=".GameActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:paddingBottom="10dp"
-        android:background="@drawable/back_recyc"
+        android:background="@drawable/bach2"
         android:layout_height="match_parent">
         <CustomView.CustomTextView
             android:layout_width="wrap_content"
@@ -26,6 +25,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
             android:textSize="20dp"
+            android:padding="3dp"
             android:id="@+id/emtiaz_txt"
             android:textColor="#700074"
             android:layout_height="wrap_content" />

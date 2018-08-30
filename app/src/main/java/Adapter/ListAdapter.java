@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.kavireletronic.ali.gortkehgame.GameActivity;
 import com.kavireletronic.ali.gortkehgame.R;
 import com.valdesekamdem.library.mdtoast.MDToast;
+import static maes.tech.intentanim.CustomIntent.customType;
 
 import java.util.List;
 
@@ -98,6 +99,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.Holder>  {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 if (SP.getInt("level_user",1)>=Integer.parseInt(mar_)){
                     context.startActivity(intent);
+//                    customType(context,"right-to-left");
                 }else {
                     MDToast mdToast= MDToast.makeText(context,context.getString(R.string.not_access),MDToast.LENGTH_LONG,MDToast.TYPE_WARNING);
                     mdToast.show();

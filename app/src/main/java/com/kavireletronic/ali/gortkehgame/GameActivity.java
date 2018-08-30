@@ -29,6 +29,8 @@ import java.util.TimerTask;
 import Utils.FormatHelper;
 import Utils.RandomNum;
 
+import static maes.tech.intentanim.CustomIntent.customType;
+
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView textView,javabTahih,mar_txt,emtiaz_txt;
     private List<String> ahdad=new ArrayList<>();
@@ -44,6 +46,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private String level_,mar_,ahdad_,argame_;
     private SharedPreferences SP;
     private static SharedPreferences.Editor editor;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(),ListActivity.class));
+        customType(GameActivity.this,"fadein-to-fadeout");
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +79,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         ahdad_=getIntent().getExtras().getString("ahdad").toString();
         argame_=getIntent().getExtras().getString("argam").toString();
 
-        mar_txt.setText(FormatHelper.toPersianNumber( mar_+"مرحله:"));
-        emtiaz_txt.setText(FormatHelper.toPersianNumber("امتیاز:"+String.valueOf(SP.getInt("emtiaz",0))));
+        mar_txt.setText(FormatHelper.toPersianNumber( "مرحله: "+mar_));
+        emtiaz_txt.setText(FormatHelper.toPersianNumber("امتیاز: "+String.valueOf(SP.getInt("emtiaz",0))));
 
 
         start.setOnClickListener(this);
@@ -203,6 +213,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 int emtiaz=SP.getInt("emtiaz",0);
                 emtiaz=emtiaz-5;
                 editor.putInt("emtiaz",emtiaz);
+                emtiaz_txt.setText(FormatHelper.toPersianNumber("امتیاز:"+emtiaz));
+
                 editor.apply();
 
             }
