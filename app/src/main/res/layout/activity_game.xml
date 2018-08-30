@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    tools:context=".GameActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:paddingBottom="10dp"
+        android:background="@drawable/back_recyc"
+        android:layout_height="match_parent">
+        <CustomView.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:textSize="20dp"
+            android:id="@+id/mar_txt"
+            android:textColor="#700074"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content" />
+        <CustomView.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:textSize="20dp"
+            android:id="@+id/emtiaz_txt"
+            android:textColor="#700074"
+            android:layout_height="wrap_content" />
+
+        <CustomView.CustomTextView
+            android:layout_width="250dp"
+            android:paddingBottom="10dp"
+            android:id="@+id/numberimgage"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/circle"
+            android:textColor="#790091"
+            android:gravity="center"
+            android:text="@string/start"
+            android:textSize="90dp"
+            android:layout_height="250dp" />
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="55dp"
+            android:visibility="invisible"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="7dp"
+            android:padding="5dp"
+            app:cardElevation="6dp"
+            android:id="@+id/javab_card"
+            android:elevation="5dp"
+            app:cardMaxElevation="5dp"
+            app:cardBackgroundColor="@color/colorcard"
+            tools:ignore="MissingConstraints" >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <CustomView.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:text="1222222445"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/javatahiehtxt"
+                    android:textSize="20dp"
+                    android:visibility="gone"
+                    android:textDirection="rtl"
+                    android:textColor="#27a700"
+                    android:layout_height="wrap_content" />
+
+            <CustomView.CustomEditText
+                android:layout_width="match_parent"
+                android:id="@+id/javabedit"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:paddingRight="10dp"
+                android:textDirection="rtl"
+                android:textColor="#006440"
+                android:inputType="numberSigned"
+                android:hint="@string/javab"
+                android:textSize="25dp"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+            <CustomView.CustomButton
+                android:layout_width="100dp"
+                android:text="@string/ok"
+                android:background="@drawable/btn_back"
+                android:layout_below="@+id/javabedit"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:id="@+id/btn_ok"
+                android:layout_height="wrap_content" />
+             <CustomView.CustomButton
+                    android:layout_width="100dp"
+                    android:text="@string/newgame"
+                    android:background="@drawable/btn_back_red"
+                    android:layout_below="@+id/javabedit"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/btn_new"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <CustomView.CustomButton
+            android:layout_width="wrap_content"
+            android:id="@+id/btn_spotify"
+            android:paddingBottom="20dp"
+            android:gravity="center"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:text="@string/yes"
+            android:textColor="#ffffff"
+            android:textSize="22dp"
+            android:background="@drawable/btn_back"
+            android:paddingTop="20dp"
+            android:layout_below="@+id/numberimgage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

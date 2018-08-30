@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">GortkehGame</string>
+    <string name="start">شروع</string>
+    <string name="yes">بله</string>
+    <string name="amade">...</string>
+    <string name="javab">جواب ...</string>
+    <string name="ok">باشه</string>
+    <string name="newgame">از نو </string>
+    <string name="truejavab">آفرین جواب شما صحیح است</string>
+    <string name="badjavab">بیشتر دقت کن</string>
+    <string name="not_access">شما اجازه دسترسی به این مرحله ندارید</string>
 </resources>
