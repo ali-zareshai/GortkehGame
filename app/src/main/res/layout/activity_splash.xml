@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#42b37b"
+    android:layout_height="match_parent"
+    tools:context=".SplashActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="200dp"
+            android:src="@mipmap/chortkeh"
+            android:visibility="invisible"
+            android:id="@+id/icon_spalsh"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_height="200dp" />
+        <CustomView.CustomTextView
+            android:layout_width="wrap_content"
+            android:text="@string/gorteh"
+            android:textColor="#ffffff"
+            android:textSize="35dp"
+            android:layout_below="@id/icon_spalsh"
+            android:layout_centerHorizontal="true"
+            android:padding="4dp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

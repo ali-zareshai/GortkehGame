@@ -5,6 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="backcircle">#ab0094</color>
     <color name="backstack">#d110c400</color>
-    <color name="colorcard">#ececec</color>
+    <color name="colorcard">#e7ececec</color>
     <color name="name_item">#780093</color>
 </resources>

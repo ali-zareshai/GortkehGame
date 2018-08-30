@@ -2,12 +2,11 @@ package com.kavireletronic.ali.gortkehgame;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Handler;
+import android.os.VibrationEffect;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,11 +17,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.os.Vibrator;
 
 import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -46,6 +47,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private String level_,mar_,ahdad_,argame_;
     private SharedPreferences SP;
     private static SharedPreferences.Editor editor;
+    private Vibrator vibrator;
 
     @Override
     public void onBackPressed() {
@@ -72,6 +74,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = SP.edit();
 
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+
 
         /// get intent
         level_=getIntent().getExtras().getString("level").toString();
@@ -93,6 +97,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
+
     private void setJavabTahih(String str){
         javabTahih.setText(FormatHelper.toPersianNumber("جواب صحیح: "+str));
     }
@@ -102,8 +108,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         ahdad= RandomNum.getInit(Integer.parseInt(argame_),Integer.parseInt(ahdad_),Integer.parseInt(level_));
         getJavabFinal=String.valueOf(RandomNum.getJavab());
         setJavabTahih(getJavabFinal);
-        Log.e("ahdad",String.valueOf(ahdad));
-        Log.e("javab:",getJavabFinal);
         loop();
 
     }
@@ -157,6 +161,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
                 javab.startAnimation(animFaz2);
+                javabEdit.requestFocus();
             }
         });
 
@@ -175,13 +180,21 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }else if (view.getId()==new_game.getId()){
             startnew();
         }else if (view.getId()==ok_javab.getId()){
-            ok_javab.setEnabled(false);
             checkJavab();
         }
     }
 
     private void checkJavab() {
         String userJavab=javabEdit.getText().toString().trim();
+
+        if (userJavab.equals("")){
+            MDToast mdToast= MDToast.makeText(getApplicationContext(),getString(R.string.insert_ahdad),MDToast.LENGTH_LONG,MDToast.TYPE_INFO);
+            mdToast.show();
+            return;
+        }
+        Log.e("input:::",userJavab);
+        userJavab=FormatHelper.toEngNumber(userJavab);
+        ok_javab.setEnabled(false);
         if (userJavab.equalsIgnoreCase(getJavabFinal)){
             javabIsTrue();
         }else {
@@ -192,6 +205,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void javabIsFalse() {
         MDToast mdToast= MDToast.makeText(getApplicationContext(),getString(R.string.badjavab),MDToast.LENGTH_LONG,MDToast.TYPE_ERROR);
         mdToast.show();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        }else{
+            //deprecated in API 26
+            vibrator.vibrate(500);
+        }
         javabTahih.setVisibility(View.VISIBLE);
         updateEmtiaz(false);
     }
