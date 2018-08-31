@@ -44,6 +44,11 @@
                 android:id="@+id/level"
                 android:visibility="gone"
                 android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/interval"
+                android:visibility="gone"
+                android:layout_height="wrap_content" />
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="50dp"
                 android:src="@drawable/lock_open"

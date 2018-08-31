@@ -16,8 +16,10 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Vibrator;
+import android.widget.Toast;
 
 import com.valdesekamdem.library.mdtoast.MDToast;
 
@@ -29,6 +31,9 @@ import java.util.TimerTask;
 
 import Utils.FormatHelper;
 import Utils.RandomNum;
+//import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+//import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+//import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 import static maes.tech.intentanim.CustomIntent.customType;
 
@@ -44,11 +49,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private android.view.animation.Animation animFaz1, animFaz2;
     private int count=0;
     private String getJavabFinal;
-    private String level_,mar_,ahdad_,argame_;
+    private String level_,mar_,ahdad_,argame_,interval_;
     private SharedPreferences SP;
     private static SharedPreferences.Editor editor;
     private Vibrator vibrator;
     private boolean doubleBackToExitPressedOnce = false;
+    private int star=3;
+    private ImageView star2,star3;
+    private static final String SHOWCASE_ID = "sequence example";
 
     @Override
     public void onBackPressed() {
@@ -87,9 +95,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         javabTahih=(TextView)findViewById(R.id.javatahiehtxt);
         mar_txt=(TextView) findViewById(R.id.mar_txt);
         emtiaz_txt=(TextView)findViewById(R.id.emtiaz_txt);
+        star2=(ImageView)findViewById(R.id.star2);
+        star3=(ImageView)findViewById(R.id.star3);
 
         SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = SP.edit();
+        showShowCast();
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
@@ -99,6 +110,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mar_=getIntent().getExtras().getString("mar").toString();
         ahdad_=getIntent().getExtras().getString("ahdad").toString();
         argame_=getIntent().getExtras().getString("argam").toString();
+        interval_=getIntent().getExtras().getString("interval").toString();
 
         mar_txt.setText(FormatHelper.toPersianNumber( "مرحله: "+mar_));
         emtiaz_txt.setText(FormatHelper.toPersianNumber("امتیاز: "+String.valueOf(SP.getInt("emtiaz",0))));
@@ -114,6 +126,71 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
+    private void showShowCast() {
+        if (SP.getBoolean("first_run",true)){
+            editor.putBoolean("first_run",false);
+            editor.apply();
+            ///______________________________________________________
+//            showcast();
+        }
+    }
+
+//    private void showcast() {
+//        ShowcaseConfig config = new ShowcaseConfig();
+//        config.setDelay(500); // half second between each showcase view
+//
+//        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, SHOWCASE_ID);
+//
+//        sequence.setOnItemShownListener(new MaterialShowcaseSequence.OnSequenceItemShownListener() {
+//            @Override
+//            public void onShow(MaterialShowcaseView itemView, int position) {
+//                Toast.makeText(itemView.getContext(), "Item #" + position, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        sequence.setConfig(config);
+//
+////        sequence.addSequenceItem(mar_txt, getString(R.string.help_mar), getString(R.string.get_it));
+//
+//        sequence.addSequenceItem(
+//                new MaterialShowcaseView.Builder(this)
+//                        .setTarget(mar_txt)
+//                        .setDismissText(getString(R.string.get_it))
+//                        .setContentText(getString(R.string.help_mar))
+//                        .withRectangleShape(true)
+//                        .build()
+//        );
+//
+//        sequence.addSequenceItem(
+//                new MaterialShowcaseView.Builder(this)
+//                        .setTarget(emtiaz_txt)
+//                        .setDismissText(getString(R.string.get_it))
+//                        .setContentText(getString(R.string.help_emtiaz))
+//                        .withRectangleShape()
+//                        .build()
+//        );
+//
+//        sequence.addSequenceItem(
+//                new MaterialShowcaseView.Builder(this)
+//                        .setTarget(start)
+//                        .setDismissText(getString(R.string.get_it))
+//                        .setContentText(getString(R.string.help_start))
+//                        .withRectangleShape()
+//                        .build()
+//        );
+//
+//        sequence.addSequenceItem(
+//                new MaterialShowcaseView.Builder(this)
+//                        .setTarget(textView)
+//                        .setDismissText(getString(R.string.get_it))
+//                        .setContentText(getString(R.string.help_total))
+//                        .withRectangleShape()
+//                        .build()
+//        );
+//
+//        sequence.start();
+//    }
 
 
     private void setJavabTahih(String str){
@@ -155,7 +232,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         };
-        timer.schedule(timerTask,2500,1000);
+        timer.schedule(timerTask,2500,Long.parseLong(interval_));
     }
 
     private void getJavab() {
@@ -230,6 +307,37 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         javabTahih.setVisibility(View.VISIBLE);
         updateEmtiaz(false);
+        star=star-1;
+        setShowStar(star);
+    }
+
+    private void setShowStar(int star) {
+        switch (star){
+            case 3:
+                break;
+            case 2:
+                star3.setVisibility(View.GONE);
+                break;
+            case 1:
+                star2.setVisibility(View.GONE);
+                break;
+            case 0:
+                resetGame();
+                break;
+
+        }
+    }
+
+    private void resetGame() {
+        editor.putInt("level_user",1);
+        editor.putInt("emtiaz",0);
+        editor.apply();
+        MDToast mdToast= MDToast.makeText(getApplicationContext(),getString(R.string.gameover),MDToast.LENGTH_LONG,MDToast.TYPE_WARNING);
+        mdToast.show();
+        startActivity(new Intent(getApplicationContext(),ListActivity.class));
+        customType(GameActivity.this,"fadein-to-fadeout");
+        finish();
+
     }
 
     private void updateEmtiaz(Boolean status) {

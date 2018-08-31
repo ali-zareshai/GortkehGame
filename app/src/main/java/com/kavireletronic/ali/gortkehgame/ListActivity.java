@@ -89,6 +89,7 @@ public class ListActivity extends AppCompatActivity {
             levelModel.setAhdad(obj.getString("ahdad"));
             levelModel.setLevel(obj.getString("level"));
             levelModel.setArgame(obj.getString("argam"));
+            levelModel.setInterval(obj.getString("interval"));
 
             levelModelList.add(levelModel);
 
@@ -100,7 +101,7 @@ public class ListActivity extends AppCompatActivity {
     private String loadJSONFromAsset(Context context) {
         String json = null;
         try {
-            InputStream is = context.getAssets().open("level.txt");
+            InputStream is = context.getAssets().open("gortkeh.txt");
 
             int size = is.available();
 

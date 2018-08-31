@@ -1,16 +1,17 @@
 package Model;
 
 public class LevelModel {
-    private String name,level,ahdad,argame;
+    private String name,level,ahdad,argame,interval;
 
     public LevelModel() {
     }
 
-    public LevelModel(String name, String level, String ahdad, String argame) {
-        this.name = name;
-        this.level = level;
-        this.ahdad = ahdad;
-        this.argame = argame;
+    public String getInterval() {
+        return interval;
+    }
+
+    public void setInterval(String interval) {
+        this.interval = interval;
     }
 
     public String getName() {

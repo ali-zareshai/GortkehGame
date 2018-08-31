@@ -48,6 +48,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.Holder>  {
         holder.ahdad.setText(levelModel.getAhdad());
         holder.level.setText(levelModel.getLevel());
         holder.mar.setText(levelModel.getName());
+        holder.interval.setText(levelModel.getInterval());
 
         if (SP.getInt("level_user",1)>=Integer.parseInt(levelModel.getName())){
             holder.icon.setImageResource(R.drawable.lock_open);
@@ -64,7 +65,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.Holder>  {
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView icon;
-        TextView mar,level,ahdad,argam,name;
+        TextView mar,level,ahdad,argam,name,interval;
         public Holder(View itemView) {
             super(itemView);
             icon=(ImageView)itemView.findViewById(R.id.lock_icon);
@@ -73,6 +74,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.Holder>  {
             ahdad=(TextView)itemView.findViewById(R.id.ahdad);
             argam=(TextView)itemView.findViewById(R.id.argam);
             name=(TextView)itemView.findViewById(R.id.name);
+            interval=(TextView)itemView.findViewById(R.id.interval);
 
             itemView.setOnClickListener(this);
 
@@ -85,17 +87,20 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.Holder>  {
                 TextView level=(TextView)view.findViewById(R.id.level);
                 TextView ahdad=(TextView)view.findViewById(R.id.ahdad);
                 TextView argam=(TextView)view.findViewById(R.id.argam);
+                TextView interval=(TextView)view.findViewById(R.id.interval);
 
                 String mar_=mar.getText().toString();
                 String level_=level.getText().toString();
                 String ahdad_=ahdad.getText().toString();
                 String argam_=argam.getText().toString();
+                String interval_=interval.getText().toString();
 
                 Intent intent=new Intent(context, GameActivity.class);
                 intent.putExtra("mar",mar_);
                 intent.putExtra("level",level_);
                 intent.putExtra("ahdad",ahdad_);
                 intent.putExtra("argam",argam_);
+                intent.putExtra("interval",interval_);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 if (SP.getInt("level_user",1)>=Integer.parseInt(mar_)){
                     context.startActivity(intent);

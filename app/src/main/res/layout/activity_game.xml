@@ -67,7 +67,7 @@
                 <CustomView.CustomTextView
                     android:layout_width="wrap_content"
                     android:text="1222222445"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/javatahiehtxt"
                     android:textSize="20dp"
@@ -90,6 +90,27 @@
                 android:textSize="25dp"
                 android:gravity="center"
                 android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:padding="1dp"
+                    android:id="@+id/star1"
+                    android:src="@drawable/star"
+                    android:layout_height="30dp" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:padding="1dp"
+                    android:layout_toRightOf="@+id/star1"
+                    android:id="@+id/star2"
+                    android:src="@drawable/star"
+                    android:layout_height="30dp" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:padding="1dp"
+                    android:layout_toRightOf="@+id/star2"
+                    android:id="@+id/star3"
+                    android:src="@drawable/star"
+                    android:layout_height="30dp" />
             <CustomView.CustomButton
                 android:layout_width="100dp"
                 android:text="@string/ok"

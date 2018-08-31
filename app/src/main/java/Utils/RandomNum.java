@@ -119,12 +119,12 @@ public class RandomNum {
         if (x==0){
             javab=numbers.get(1)+numbers.get(0);
             finallist.add(String.valueOf(numbers.get(x)));
-            finallist.add("+");
+//            finallist.add("+");
             finallist.add(String.valueOf(numbers.get(x+1)));
 
         }else {
             javab=javab+numbers.get(x+1);
-            finallist.add("+");
+//            finallist.add("+");
             finallist.add(String.valueOf(numbers.get(x+1)));
         }
 
