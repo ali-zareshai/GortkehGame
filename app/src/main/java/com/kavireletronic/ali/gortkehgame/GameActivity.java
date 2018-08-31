@@ -234,8 +234,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            setTextViewn(ahdad.get(count));
-                            count++;
+                            setTextViewn("");
+                            new Handler().postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    setTextViewn(ahdad.get(count));
+                                    count++;
+                                }
+                            }, 600);
+
                         }
                     });
 
@@ -244,7 +252,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         };
-        timer.schedule(timerTask,2100,Long.parseLong(interval_));
+        timer.schedule(timerTask,2000,Long.parseLong(interval_)+600);
     }
 
     private void getJavab() {
