@@ -35,5 +35,5 @@ dependencies {
     implementation 'com.android.support:cardview-v7:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.github.hajiyevelnur92:intentanimation:1.0'
-
+    implementation 'com.github.faruktoptas:FancyShowCaseView:1.0.1'
 }

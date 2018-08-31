@@ -3,11 +3,11 @@ package com.kavireletronic.ali.gortkehgame;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Handler;
 import android.os.VibrationEffect;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -19,21 +19,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Vibrator;
-import android.widget.Toast;
 
 import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import Utils.FormatHelper;
 import Utils.RandomNum;
-//import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
-//import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
-//import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
+import me.toptas.fancyshowcase.FancyShowCaseQueue;
+import me.toptas.fancyshowcase.FancyShowCaseView;
+import me.toptas.fancyshowcase.OnViewInflateListener;
+
 
 import static maes.tech.intentanim.CustomIntent.customType;
 
@@ -54,9 +53,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private static SharedPreferences.Editor editor;
     private Vibrator vibrator;
     private boolean doubleBackToExitPressedOnce = false;
-    private int star=3;
+    private int star;
     private ImageView star2,star3;
     private static final String SHOWCASE_ID = "sequence example";
+    private FancyShowCaseQueue fancyShowCaseQueue;
 
     @Override
     public void onBackPressed() {
@@ -100,7 +100,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = SP.edit();
-        showShowCast();
+//        showShowCast();
+        star=SP.getInt("stars",3);
+
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
@@ -122,6 +124,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         timer=new Timer();
         mHandler = new Handler();
+        showShowCast();
 
 
 
@@ -132,65 +135,74 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             editor.putBoolean("first_run",false);
             editor.apply();
             ///______________________________________________________
-//            showcast();
+            showcast();
         }
     }
 
-//    private void showcast() {
-//        ShowcaseConfig config = new ShowcaseConfig();
-//        config.setDelay(500); // half second between each showcase view
-//
-//        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, SHOWCASE_ID);
-//
-//        sequence.setOnItemShownListener(new MaterialShowcaseSequence.OnSequenceItemShownListener() {
-//            @Override
-//            public void onShow(MaterialShowcaseView itemView, int position) {
-//                Toast.makeText(itemView.getContext(), "Item #" + position, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        sequence.setConfig(config);
-//
-////        sequence.addSequenceItem(mar_txt, getString(R.string.help_mar), getString(R.string.get_it));
-//
-//        sequence.addSequenceItem(
-//                new MaterialShowcaseView.Builder(this)
-//                        .setTarget(mar_txt)
-//                        .setDismissText(getString(R.string.get_it))
-//                        .setContentText(getString(R.string.help_mar))
-//                        .withRectangleShape(true)
-//                        .build()
-//        );
-//
-//        sequence.addSequenceItem(
-//                new MaterialShowcaseView.Builder(this)
-//                        .setTarget(emtiaz_txt)
-//                        .setDismissText(getString(R.string.get_it))
-//                        .setContentText(getString(R.string.help_emtiaz))
-//                        .withRectangleShape()
-//                        .build()
-//        );
-//
-//        sequence.addSequenceItem(
-//                new MaterialShowcaseView.Builder(this)
-//                        .setTarget(start)
-//                        .setDismissText(getString(R.string.get_it))
-//                        .setContentText(getString(R.string.help_start))
-//                        .withRectangleShape()
-//                        .build()
-//        );
-//
-//        sequence.addSequenceItem(
-//                new MaterialShowcaseView.Builder(this)
-//                        .setTarget(textView)
-//                        .setDismissText(getString(R.string.get_it))
-//                        .setContentText(getString(R.string.help_total))
-//                        .withRectangleShape()
-//                        .build()
-//        );
-//
-//        sequence.start();
-//    }
+    private void showcast() {
+        final FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(this)
+                .title(getString(R.string.help_mar))
+                .focusOn(mar_txt)
+                .customView(R.layout.layout_help_mar, new OnViewInflateListener() {
+                    @Override
+                    public void onViewInflated(@NonNull View view) {
+                        view.findViewById(R.id.btn_action_1).setOnClickListener(mClickListener);
+                    }
+                })
+                .closeOnTouch(false)
+                .build();
+
+        final FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(this)
+                .title(getString(R.string.help_emtiaz))
+                .focusOn(emtiaz_txt)
+                .customView(R.layout.layout_help_emtiaz, new OnViewInflateListener() {
+                    @Override
+                    public void onViewInflated(@NonNull View view) {
+                        view.findViewById(R.id.btn_action_1).setOnClickListener(mClickListener);
+                    }
+                })
+                .closeOnTouch(false)
+                .build();
+
+        final FancyShowCaseView fancyShowCaseView3 = new FancyShowCaseView.Builder(this)
+                .title(getString(R.string.help_start))
+                .focusOn(start)
+                .customView(R.layout.layout_help_start, new OnViewInflateListener() {
+                    @Override
+                    public void onViewInflated(@NonNull View view) {
+                        view.findViewById(R.id.btn_action_1).setOnClickListener(mClickListener);
+                    }
+                })
+                .closeOnTouch(false)
+                .build();
+
+        final FancyShowCaseView fancyShowCaseView4 = new FancyShowCaseView.Builder(this)
+                .title(getString(R.string.help_total))
+                .focusOn(textView)
+                .customView(R.layout.layout_help_total, new OnViewInflateListener() {
+                    @Override
+                    public void onViewInflated(@NonNull View view) {
+                        view.findViewById(R.id.btn_action_1).setOnClickListener(mClickListener);
+                    }
+                })
+                .closeOnTouch(false)
+                .build();
+
+        fancyShowCaseQueue = new FancyShowCaseQueue()
+                .add(fancyShowCaseView1)
+                .add(fancyShowCaseView2)
+                .add(fancyShowCaseView3)
+                .add(fancyShowCaseView4);
+
+        fancyShowCaseQueue.show();
+    }
+    View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Log.d("", "onClick: ");
+            fancyShowCaseQueue.getCurrent().hide();
+        }
+    };
 
 
     private void setJavabTahih(String str){
@@ -232,7 +244,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         };
-        timer.schedule(timerTask,2500,Long.parseLong(interval_));
+        timer.schedule(timerTask,2100,Long.parseLong(interval_));
     }
 
     private void getJavab() {
@@ -307,8 +319,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         javabTahih.setVisibility(View.VISIBLE);
         updateEmtiaz(false);
-        star=star-1;
-        setShowStar(star);
+
     }
 
     private void setShowStar(int star) {
@@ -331,6 +342,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void resetGame() {
         editor.putInt("level_user",1);
         editor.putInt("emtiaz",0);
+        editor.putInt("stars",3);
         editor.apply();
         MDToast mdToast= MDToast.makeText(getApplicationContext(),getString(R.string.gameover),MDToast.LENGTH_LONG,MDToast.TYPE_WARNING);
         mdToast.show();
@@ -348,6 +360,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 editor.putInt("level_user",level);
                 int emtiaz=SP.getInt("emtiaz",0);
                 emtiaz=emtiaz+10;
+                editor.putInt("stars",3);
                 editor.putInt("emtiaz",emtiaz);
                 editor.apply();
 
@@ -359,6 +372,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 editor.putInt("emtiaz",emtiaz);
                 emtiaz_txt.setText(FormatHelper.toPersianNumber("امتیاز:"+emtiaz));
 
+
+                star=star-1;
+                setShowStar(star);
+                editor.putInt("stars",star);
                 editor.apply();
 
             }

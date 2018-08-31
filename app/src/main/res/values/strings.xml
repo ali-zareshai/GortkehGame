@@ -9,7 +9,7 @@
     <string name="help_emtiaz">میزان امتیاز شما</string>
     <string name="help_mar">مرحله ای که شما در آن قرار دارید</string>
     <string name="help_start">برای شروع بازی اینجا را کلیک کنید بعد از دو ثانیه بازی شروع می شود</string>
-    <string name="help_total">به ازای هر پاسخ صحیح 10 امتیاز مثبت, پاسخ اشتباه 5 امتیاز منفی دریافت میکنید بعد از 3 بار پاسخ اشتباه در یک مرحله به مرحله اول برگردید</string>
+    <string name="help_total">به ازای هر پاسخ صحیح ده امتیاز مثبت, پاسخ اشتباه پنج امتیاز منفی دریافت میکنید بعد از سه بار پاسخ اشتباه در یک مرحله به مرحله اول برگردید</string>
     <string name="newgame">از نو </string>
     <string name="truejavab">آفرین جواب شما صحیح است</string>
     <string name="badjavab">بیشتر دقت کن</string>
