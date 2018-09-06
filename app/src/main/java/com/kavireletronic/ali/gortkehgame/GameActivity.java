@@ -1,5 +1,6 @@
 package com.kavireletronic.ali.gortkehgame;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
@@ -14,6 +15,7 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -126,8 +128,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mHandler = new Handler();
         showShowCast();
 
-
-
     }
 
     private void showShowCast() {
@@ -213,6 +213,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         textView.setTextSize(130);
         ahdad= RandomNum.getInit(Integer.parseInt(argame_),Integer.parseInt(ahdad_),Integer.parseInt(level_));
         getJavabFinal=String.valueOf(RandomNum.getJavab());
+        Log.e("javab >>> ",getJavabFinal);
         setJavabTahih(getJavabFinal);
         loop();
 
@@ -351,6 +352,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         editor.putInt("level_user",1);
         editor.putInt("emtiaz",0);
         editor.putInt("stars",3);
+        editor.putInt("jams",0);
         editor.apply();
         MDToast mdToast= MDToast.makeText(getApplicationContext(),getString(R.string.gameover),MDToast.LENGTH_LONG,MDToast.TYPE_WARNING);
         mdToast.show();
@@ -371,7 +373,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 editor.putInt("stars",3);
                 editor.putInt("emtiaz",emtiaz);
                 editor.apply();
-
+                chechWinner(emtiaz);
             }
         }else {
             if (SP.getInt("level_user",1)==Integer.parseInt(mar_)){
@@ -388,6 +390,34 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         }
+    }
+
+    private void chechWinner(int emtiaz) {
+        int jam    =getjame(emtiaz);
+        int has_jam=SP.getInt("jams",0);
+        if (jam>has_jam){
+            editor.putInt("jams",jam);
+            editor.putBoolean("new_jam",true);
+            editor.apply();
+        }
+    }
+
+    private int getjame(int emtiaz) {
+        if (emtiaz>=100 && emtiaz<200){
+            return 1;
+        }else if (emtiaz>=200 && emtiaz<300){
+            return 2;
+        }else if (emtiaz>=300 && emtiaz<400){
+            return 3;
+        }else if (emtiaz>=400 && emtiaz<500){
+            return 4;
+        }else if (emtiaz>=500 && emtiaz<600){
+            return 5;
+        }else if (emtiaz>=600){
+            return 6;
+        }
+
+        return 0;
     }
 
     private void javabIsTrue() {
@@ -426,10 +456,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         javabTahih.setVisibility(View.GONE);
         javabEdit.setText("");
         count=0;
+        hideSoftKeyboard(this);
+    }
 
 
 
-
-
+    private static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
     }
 }

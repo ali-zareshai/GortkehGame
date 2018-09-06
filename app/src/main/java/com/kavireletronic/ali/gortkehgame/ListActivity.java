@@ -8,9 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 
+import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
 import org.json.JSONArray;
@@ -31,6 +36,9 @@ public class ListActivity extends AppCompatActivity {
     private LayoutAnimationController animationController;
     private SharedPreferences SP;
     private boolean doubleBackToExitPressedOnce = false;
+    private Toolbar jame_toolbar;
+    private ImageView jam1,jam2,jam3,jam4,jam5,jam6;
+    private static SharedPreferences.Editor editor;
 
     @Override
     public void onBackPressed() {
@@ -58,8 +66,16 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         recyclerView=(RecyclerView)findViewById(R.id.recycle);
+        jame_toolbar=(Toolbar)findViewById(R.id.toolbar_jam);
+        jam1=(ImageView)findViewById(R.id.jam1);
+        jam2=(ImageView)findViewById(R.id.jam2);
+        jam3=(ImageView)findViewById(R.id.jam3);
+        jam4=(ImageView)findViewById(R.id.jam4);
+        jam5=(ImageView)findViewById(R.id.jam5);
+        jam6=(ImageView)findViewById(R.id.jam6);
 
         SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = SP.edit();
 
         layoutManager=new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -75,7 +91,55 @@ public class ListActivity extends AppCompatActivity {
         }
         recyclerView.setAdapter(listAdapter);
         recyclerView.scrollToPosition(SP.getInt("level_user",1)-1);
+        setJames();
 
+    }
+
+    private void setJames() {
+        if (SP.getInt("jams",0)!=0){
+            jame_toolbar.setVisibility(View.VISIBLE);
+            switch (SP.getInt("jams",0)){
+                case 1:
+                    jam1.setVisibility(View.VISIBLE);
+                    break;
+                case 2:
+                    jam1.setVisibility(View.VISIBLE);
+                    jam2.setVisibility(View.VISIBLE);
+                    break;
+                case 3:
+                    jam1.setVisibility(View.VISIBLE);
+                    jam2.setVisibility(View.VISIBLE);
+                    jam3.setVisibility(View.VISIBLE);
+                    break;
+                case 4:
+                    jam1.setVisibility(View.VISIBLE);
+                    jam2.setVisibility(View.VISIBLE);
+                    jam3.setVisibility(View.VISIBLE);
+                    jam4.setVisibility(View.VISIBLE);
+                    break;
+                case 5:
+                    jam1.setVisibility(View.VISIBLE);
+                    jam2.setVisibility(View.VISIBLE);
+                    jam3.setVisibility(View.VISIBLE);
+                    jam4.setVisibility(View.VISIBLE);
+                    jam5.setVisibility(View.VISIBLE);
+                    break;
+                case 6:
+                    jam1.setVisibility(View.VISIBLE);
+                    jam2.setVisibility(View.VISIBLE);
+                    jam3.setVisibility(View.VISIBLE);
+                    jam4.setVisibility(View.VISIBLE);
+                    jam5.setVisibility(View.VISIBLE);
+                    jam6.setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
+
+        if (SP.getBoolean("new_jam",false)){
+            editor.putBoolean("new_jam",false);
+            editor.apply();
+            showWinnerDialog();
+        }
     }
 
     private List<LevelModel> getLevels() throws JSONException {
@@ -120,5 +184,31 @@ public class ListActivity extends AppCompatActivity {
         }
         return json;
 
+    }
+
+
+    private void showWinnerDialog(){
+        new FancyGifDialog.Builder(this)
+                .setTitle(getString(R.string.winner_title))
+                .setMessage(getString(R.string.winner_body))
+                .setNegativeBtnText(getString(R.string.exit))
+                .setPositiveBtnBackground("#FF4081")
+                .setPositiveBtnText(getString(R.string.continue_))
+                .setNegativeBtnBackground("#FFA9A7A8")
+                .setGifResource(R.drawable.winner)   //Pass your Gif here
+                .isCancellable(true)
+                .OnPositiveClicked(new FancyGifDialogListener() {
+                    @Override
+                    public void OnClick() {
+//                        Toast.makeText(MainActivity.this,"Ok",Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .OnNegativeClicked(new FancyGifDialogListener() {
+                    @Override
+                    public void OnClick() {
+                        finish();
+                    }
+                })
+                .build();
     }
 }

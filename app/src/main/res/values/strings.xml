@@ -2,6 +2,8 @@
     <string name="app_name">چرتکه</string>
     <string name="start">شروع</string>
     <string name="yes">آماده ام</string>
+    <string name="continue_">ادامه</string>
+    <string name="exit">خروج</string>
     <string name="amade">...</string>
     <string name="javab">جواب ...</string>
     <string name="ok">باشه</string>
@@ -17,6 +19,8 @@
     <string name="gorteh">چرتکه</string>
     <string name="gameover">متاسفانه شما بازی را باختید</string>
     <string name="twice_click">برای خروج دوبار فشار دهید</string>
+    <string name="winner_title">برنده</string>
+    <string name="winner_body">*شما برنده یک جام جدید شدید*</string>
     <string name="insert_ahdad">لطفا جواب را وارد کنید</string>
     <string name="develop">Developer:\n ali-zareshahi@outlook.com</string>
 </resources>

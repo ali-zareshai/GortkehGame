@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back_g"
     tools:context=".ListActivity">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -35,13 +36,80 @@
                     android:layout_height="wrap_content" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_jam"
+            android:layout_below="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/winner_back">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/jame"
+                    android:id="@+id/jam1"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    android:layout_alignParentLeft="true"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/jame"
+                    android:id="@+id/jam2"
+                    android:visibility="gone"
+                    android:padding="2dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/jame"
+                    android:id="@+id/jam3"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    android:layout_marginLeft="120dp"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/jame"
+                    android:id="@+id/jam4"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    android:layout_marginLeft="180dp"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/jame"
+                    android:id="@+id/jam5"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    android:layout_marginLeft="240dp"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/jame"
+                    android:id="@+id/jam6"
+                    android:visibility="gone"
+                    android:padding="2dp"
+                    android:layout_marginLeft="300dp"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycle"
-            android:layout_below="@+id/toolbar"
+            android:layout_below="@+id/toolbar_jam"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:background="@drawable/back_g"
             android:scrollbars="vertical" />
     </RelativeLayout>
 
