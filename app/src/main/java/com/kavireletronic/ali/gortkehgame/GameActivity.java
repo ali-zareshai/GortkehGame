@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.VibrationEffect;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -22,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Vibrator;
 
+import com.github.anastr.flattimelib.CountDownTimerView;
+import com.github.anastr.flattimelib.intf.OnTimeFinish;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.ArrayList;
@@ -59,6 +62,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView star2,star3;
     private static final String SHOWCASE_ID = "sequence example";
     private FancyShowCaseQueue fancyShowCaseQueue;
+    private CountDownTimerView countDownTimerView;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     public void onBackPressed() {
@@ -99,6 +104,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         emtiaz_txt=(TextView)findViewById(R.id.emtiaz_txt);
         star2=(ImageView)findViewById(R.id.star2);
         star3=(ImageView)findViewById(R.id.star3);
+        countDownTimerView=(CountDownTimerView)findViewById(R.id.mCountDownTimer);
+        floatingActionButton=(FloatingActionButton)findViewById(R.id.floatingActionButton) ;
 
         SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = SP.edit();
@@ -123,10 +130,35 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         start.setOnClickListener(this);
         ok_javab.setOnClickListener(this);
         new_game.setOnClickListener(this);
+        floatingActionButton.setOnClickListener(this);
 
         timer=new Timer();
         mHandler = new Handler();
         showShowCast();
+
+    }
+
+    private void startCounter(){
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                countDownTimerView.start(5000);
+            }
+        });
+        countDownTimerView.setOnTimeFinish(new OnTimeFinish() {
+            @Override
+            public void onFinish() {
+                startnew();
+            }
+        });
+    }
+    private void stopCounter(){
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                countDownTimerView.success();
+            }
+        });
 
     }
 
@@ -231,6 +263,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     timer.cancel();
                     timer.purge();
                     getJavab();
+                    startCounter();
                 }else {
                     mHandler.post(new Runnable() {
                         @Override
@@ -291,11 +324,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             textView.setTextSize(30);
             textView.setText(FormatHelper.toPersianNumber(getString(R.string.amade)));
             setNumberToImage();
+            floatingActionButton.setVisibility(View.GONE);
 
         }else if (view.getId()==new_game.getId()){
             startnew();
         }else if (view.getId()==ok_javab.getId()){
             checkJavab();
+            stopCounter();
+        }else if (view.getId()==floatingActionButton.getId()){
+            showcast();
         }
     }
 

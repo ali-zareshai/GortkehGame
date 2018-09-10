@@ -10,6 +10,7 @@ public class RandomNum {
     private static List<Integer> numbers=new ArrayList<>();
     private static List<String> finallist=new ArrayList<>();
     private static List<Boolean> ALAMAT=new ArrayList<>();
+    private static List<String> listAhdadManfi=new ArrayList<>();
 
     private static int tehdadArgam=2;
     private static int tehdadAhdad=5;
@@ -20,18 +21,42 @@ public class RandomNum {
         tehdadAhdad=ahdad;
         tehdadArgam= argam;
         level_game=level;
+        reset();
 
+
+       while (true){
+           listAhdadManfi=removeManfi(getRandomAmal());
+           if (javab>0){
+               return listAhdadManfi;
+           }else {
+              reset();
+           }
+       }
+
+    }
+
+    private static void reset(){
         numbers=null;
         finallist=null;
         ALAMAT=null;
+        listAhdadManfi=null;
 
         numbers=new ArrayList<>();
         finallist=new ArrayList<>();
         ALAMAT=new ArrayList<>();
+        listAhdadManfi=new ArrayList<>();
 
         javab=0;
+    }
 
-        return getRandomAmal();
+    private static List<String> removeManfi(List<String> randomAmal) {
+        for (int i=0;i<randomAmal.size();i++){
+            if (randomAmal.get(i).equals("-")){
+                randomAmal.remove(i);
+                randomAmal.set(i,"-"+randomAmal.get(i));
+            }
+        }
+        return randomAmal;
     }
 
     public static int getJavab(){
@@ -55,8 +80,8 @@ public class RandomNum {
                 return random.nextInt(90)+10;
             case 3:
                 return random.nextInt(900)+100;
-                default:
-                    return 0;
+            default:
+                return 0;
         }
     }
 
