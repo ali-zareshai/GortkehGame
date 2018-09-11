@@ -33,6 +33,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import Utils.FormatHelper;
+import Utils.LevelGame;
 import Utils.RandomNum;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
@@ -53,7 +54,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private android.view.animation.Animation animFaz1, animFaz2;
     private int count=0;
     private String getJavabFinal;
-    private String level_,mar_,ahdad_,argame_,interval_;
+    private String level_,mar_,ahdad_,argame_,interval_,level_game;
     private SharedPreferences SP;
     private static SharedPreferences.Editor editor;
     private Vibrator vibrator;
@@ -69,9 +70,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
-            startActivity(new Intent(getApplicationContext(),ListActivity.class));
-            customType(GameActivity.this,"fadein-to-fadeout");
-            finish();
+            startListActivity();
             return;
         }
 
@@ -87,6 +86,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         }, 2000);
 
+    }
+
+    private void startListActivity(){
+        Intent intent=new Intent(getApplicationContext(),ListActivity.class);
+        intent.putExtra("level",level_game);
+        startActivity(intent);
+        customType(GameActivity.this,"fadein-to-fadeout");
+        finish();
     }
 
     @Override
@@ -122,6 +129,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         ahdad_=getIntent().getExtras().getString("ahdad").toString();
         argame_=getIntent().getExtras().getString("argam").toString();
         interval_=getIntent().getExtras().getString("interval").toString();
+        level_game=getIntent().getExtras().getString("level_game").toString();
 
         mar_txt.setText(FormatHelper.toPersianNumber( "مرحله: "+mar_));
         emtiaz_txt.setText(FormatHelper.toPersianNumber("امتیاز: "+String.valueOf(SP.getInt("emtiaz",0))));
@@ -242,7 +250,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setNumberToImage() {
-        textView.setTextSize(130);
+        textView.setTextSize(100);
         ahdad= RandomNum.getInit(Integer.parseInt(argame_),Integer.parseInt(ahdad_),Integer.parseInt(level_));
         getJavabFinal=String.valueOf(RandomNum.getJavab());
         Log.e("javab >>> ",getJavabFinal);
@@ -276,7 +284,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                     setTextViewn(ahdad.get(count));
                                     count++;
                                 }
-                            }, 600);
+                            }, 250);
 
                         }
                     });
@@ -286,7 +294,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         };
-        timer.schedule(timerTask,2000,Long.parseLong(interval_)+600);
+        timer.schedule(timerTask,2000,Long.parseLong(interval_)+250);
     }
 
     private void getJavab() {
@@ -327,10 +335,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             floatingActionButton.setVisibility(View.GONE);
 
         }else if (view.getId()==new_game.getId()){
+            stopCounter();
             startnew();
         }else if (view.getId()==ok_javab.getId()){
             checkJavab();
-            stopCounter();
+
         }else if (view.getId()==floatingActionButton.getId()){
             showcast();
         }
@@ -344,7 +353,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             mdToast.show();
             return;
         }
-        Log.e("input:::",userJavab);
+        stopCounter();
         userJavab=FormatHelper.toEngNumber(userJavab);
         ok_javab.setEnabled(false);
         if (userJavab.equalsIgnoreCase(getJavabFinal)){
@@ -358,10 +367,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         MDToast mdToast= MDToast.makeText(getApplicationContext(),getString(R.string.badjavab),MDToast.LENGTH_LONG,MDToast.TYPE_ERROR);
         mdToast.show();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+            vibrator.vibrate(VibrationEffect.createOneShot(400, VibrationEffect.DEFAULT_AMPLITUDE));
         }else{
             //deprecated in API 26
-            vibrator.vibrate(500);
+            vibrator.vibrate(400);
         }
         javabTahih.setVisibility(View.VISIBLE);
         updateEmtiaz(false);
@@ -386,34 +395,32 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void resetGame() {
-        editor.putInt("level_user",1);
+        editor.putInt(LevelGame.getLevelSp(level_game),1);
         editor.putInt("emtiaz",0);
         editor.putInt("stars",3);
         editor.putInt("jams",0);
         editor.apply();
         MDToast mdToast= MDToast.makeText(getApplicationContext(),getString(R.string.gameover),MDToast.LENGTH_LONG,MDToast.TYPE_WARNING);
         mdToast.show();
-        startActivity(new Intent(getApplicationContext(),ListActivity.class));
-        customType(GameActivity.this,"fadein-to-fadeout");
-        finish();
+        startListActivity();
 
     }
 
     private void updateEmtiaz(Boolean status) {
         if (status){
-            if (SP.getInt("level_user",1)==Integer.parseInt(mar_)){
-                int level=SP.getInt("level_user",1);
+            if (SP.getInt(LevelGame.getLevelSp(level_game),1)==Integer.parseInt(mar_)){
+                int level=SP.getInt(LevelGame.getLevelSp(level_game),1);
                 level++;
-                editor.putInt("level_user",level);
+                editor.putInt(LevelGame.getLevelSp(level_game),level);
                 int emtiaz=SP.getInt("emtiaz",0);
-                emtiaz=emtiaz+10;
+                emtiaz=emtiaz+LevelGame.getEmtiazLevel(level_game);
                 editor.putInt("stars",3);
                 editor.putInt("emtiaz",emtiaz);
                 editor.apply();
                 chechWinner(emtiaz);
             }
         }else {
-            if (SP.getInt("level_user",1)==Integer.parseInt(mar_)){
+            if (SP.getInt(LevelGame.getLevelSp(level_game),1)==Integer.parseInt(mar_)){
                 int emtiaz=SP.getInt("emtiaz",0);
                 emtiaz=emtiaz-5;
                 editor.putInt("emtiaz",emtiaz);
@@ -461,8 +468,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         MDToast mdToast= MDToast.makeText(getApplicationContext(),getString(R.string.truejavab),MDToast.LENGTH_LONG,MDToast.TYPE_SUCCESS);
         mdToast.show();
         updateEmtiaz(true);
-        startActivity(new Intent(getApplicationContext(),ListActivity.class));
-        finish();
+        startListActivity();
 
     }
 
@@ -485,7 +491,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         });
         ahdad=null;
         ahdad=new ArrayList<>();
-        textView.setTextSize(90);
+        textView.setTextSize(60);
         textView.setText(getString(R.string.start));
         getJavabFinal="";
         timer=new Timer();

@@ -7,4 +7,5 @@
     <color name="backstack">#d110c400</color>
     <color name="colorcard">#e7ececec</color>
     <color name="name_item">#780093</color>
+    <color name="album_title">#4c4c4c</color>
 </resources>

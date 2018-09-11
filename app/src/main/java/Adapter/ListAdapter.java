@@ -20,15 +20,18 @@ import java.util.List;
 
 import Model.LevelModel;
 import Utils.FormatHelper;
+import Utils.LevelGame;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.Holder>  {
     private List<LevelModel> levelModelList;
     private Context context;
     private SharedPreferences SP;
+    private String level_game;
 
-    public ListAdapter(List<LevelModel> levelModelList, Context context) {
+    public ListAdapter(List<LevelModel> levelModelList,String level, Context context) {
         this.levelModelList = levelModelList;
         this.context = context;
+        this.level_game=level;
 
         SP = PreferenceManager.getDefaultSharedPreferences(context);
     }
@@ -50,7 +53,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.Holder>  {
         holder.mar.setText(levelModel.getName());
         holder.interval.setText(levelModel.getInterval());
 
-        if (SP.getInt("level_user",1)>=Integer.parseInt(levelModel.getName())){
+        if (SP.getInt(LevelGame.getLevelSp(level_game),1)>=Integer.parseInt(levelModel.getName())){
             holder.icon.setImageResource(R.drawable.lock_open);
         }else {
             holder.icon.setImageResource(R.drawable.lock_close);
@@ -101,8 +104,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.Holder>  {
                 intent.putExtra("ahdad",ahdad_);
                 intent.putExtra("argam",argam_);
                 intent.putExtra("interval",interval_);
+                intent.putExtra("level_game",level_game);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                if (SP.getInt("level_user",1)>=Integer.parseInt(mar_)){
+                if (SP.getInt(LevelGame.getLevelSp(level_game),1)>=Integer.parseInt(mar_)){
                     context.startActivity(intent);
 //                    customType(context,"right-to-left");
                 }else {

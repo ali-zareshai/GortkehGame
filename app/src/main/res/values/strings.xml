@@ -5,8 +5,13 @@
     <string name="continue_">ادامه</string>
     <string name="exit">خروج</string>
     <string name="amade">...</string>
+    <string name="asan">آسان</string>
+    <string name="medium">متوسط</string>
+    <string name="hard">سخت</string>
+    <string name="pro">پیشرفته</string>
     <string name="javab">جواب ...</string>
     <string name="ok">باشه</string>
+    <string name="bye">به امید دیدار... خدانگهدار</string>
     <string name="get_it">فهمیدم</string>
     <string name="help_emtiaz">میزان امتیاز شما</string>
     <string name="help_mar">مرحله ای که شما در آن قرار دارید</string>

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
@@ -29,6 +30,7 @@ import java.util.List;
 
 import Adapter.ListAdapter;
 import Model.LevelModel;
+import Utils.LevelGame;
 
 public class ListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -39,11 +41,15 @@ public class ListActivity extends AppCompatActivity {
     private Toolbar jame_toolbar;
     private ImageView jam1,jam2,jam3,jam4,jam5,jam6;
     private static SharedPreferences.Editor editor;
+    private String level;
+    private TextView level_name;
 
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
+            MDToast mdToast= MDToast.makeText(getApplicationContext(),getString(R.string.bye),MDToast.LENGTH_LONG,MDToast.TYPE_SUCCESS);
+            mdToast.show();
             finish();
             return;
         }
@@ -74,6 +80,13 @@ public class ListActivity extends AppCompatActivity {
         jam5=(ImageView)findViewById(R.id.jam5);
         jam6=(ImageView)findViewById(R.id.jam6);
 
+        level_name=(TextView)findViewById(R.id.name_level);
+
+        level=getIntent().getExtras().getString("level").toString();
+        /// set file level ///
+        level_name.setText(LevelGame.nameLevel(level,getApplicationContext()));
+
+
         SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = SP.edit();
 
@@ -85,12 +98,12 @@ public class ListActivity extends AppCompatActivity {
 
         ListAdapter listAdapter= null;
         try {
-            listAdapter = new ListAdapter(getLevels(),getApplicationContext());
+            listAdapter = new ListAdapter(getLevels(),level,getApplicationContext());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         recyclerView.setAdapter(listAdapter);
-        recyclerView.scrollToPosition(SP.getInt("level_user",1)-1);
+        recyclerView.scrollToPosition(SP.getInt(LevelGame.getLevelSp(level),1)-1);
         setJames();
 
     }
@@ -142,6 +155,20 @@ public class ListActivity extends AppCompatActivity {
         }
     }
 
+    private String getFile(String level){
+        switch (level){
+            case "1":
+                return "asan.json";
+            case "2":
+                return "medium.json";
+            case "3":
+                return "hard.json";
+            case "4":
+                return "pro.json";
+        }
+        return "";
+    }
+
     private List<LevelModel> getLevels() throws JSONException {
         List<LevelModel> levelModelList=new ArrayList<>();
         JSONArray jsonArray=new JSONArray(loadJSONFromAsset(getApplicationContext()));
@@ -165,7 +192,7 @@ public class ListActivity extends AppCompatActivity {
     private String loadJSONFromAsset(Context context) {
         String json = null;
         try {
-            InputStream is = context.getAssets().open("gortkeh.txt");
+            InputStream is = context.getAssets().open(getFile(level));
 
             int size = is.available();
 

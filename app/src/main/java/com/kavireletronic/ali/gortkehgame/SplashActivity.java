@@ -76,7 +76,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(SplashActivity.this, ListActivity.class);
+                Intent i = new Intent(SplashActivity.this, SelectLevelActivity.class);
                 startActivity(i);
                 customType(SplashActivity.this,"fadein-to-fadeout");
                 finish();
