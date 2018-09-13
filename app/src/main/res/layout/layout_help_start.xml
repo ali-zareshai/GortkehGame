@@ -11,9 +11,10 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:textColor="#fff"
+        android:lineSpacingExtra="6dp"
         android:padding="10dp"
         android:text="@string/help_start"
-        android:textSize="20sp" />
+        android:textSize="17sp" />
 
 
 

@@ -119,7 +119,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = SP.edit();
 //        showShowCast();
-        star=SP.getInt("stars",3);
+        star=SP.getInt("stars_em",3);
+//        setShowStar(star);
 
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
@@ -167,14 +168,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void checkOnlineJavab(String s) {
-
-        if (!s.equals("") && s.equals(getJavabFinal)){
-            javabIsTrue();
-            Log.e("string",s);
-            Log.e("online","javab is true");
-        }
-    }
+//    private void checkOnlineJavab(String s) {
+//
+//        if (!s.equals("") && s.equals(getJavabFinal)){
+//            javabIsTrue();
+//            Log.e("string",s);
+//            Log.e("online","javab is true");
+//        }
+//    }
 
     private void startCounter(){
         mHandler.post(new Runnable() {
@@ -412,13 +413,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setShowStar(int star) {
         switch (star){
-            case 3:
-                break;
             case 2:
                 star3.setVisibility(View.GONE);
                 break;
             case 1:
                 star2.setVisibility(View.GONE);
+                star3.setVisibility(View.GONE);
                 break;
             case 0:
                 resetGame();
@@ -430,7 +430,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void resetGame() {
         editor.putInt(LevelGame.getLevelSp(level_game),1);
         editor.putInt("emtiaz",0);
-        editor.putInt("stars",3);
+        editor.apply();
+        editor.putInt("stars_em",3);
+        editor.apply();
         editor.putInt("jams",0);
         editor.apply();
         MDToast mdToast= MDToast.makeText(getApplicationContext(),getString(R.string.gameover),MDToast.LENGTH_LONG,MDToast.TYPE_WARNING);
@@ -447,7 +449,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 editor.putInt(LevelGame.getLevelSp(level_game),level);
                 int emtiaz=SP.getInt("emtiaz",0);
                 emtiaz=emtiaz+LevelGame.getEmtiazLevel(level_game);
-                editor.putInt("stars",3);
+                editor.putInt("stars_em",3);
+                Log.e("starr452",String.valueOf(3));
+                editor.apply();
                 editor.putInt("emtiaz",emtiaz);
                 editor.apply();
                 chechWinner(emtiaz);
@@ -461,9 +465,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
                 star=star-1;
-                setShowStar(star);
-                editor.putInt("stars",star);
+                Log.e("stars:::",String.valueOf(star));
+                editor.putInt("stars_em",star);
                 editor.apply();
+                setShowStar(star);
 
             }
         }
