@@ -1,9 +1,13 @@
 package com.kavireletronic.ali.gortkehgame;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,7 +36,7 @@ import Adapter.ListAdapter;
 import Model.LevelModel;
 import Utils.LevelGame;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends Activity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private LayoutAnimationController animationController;
@@ -43,6 +47,7 @@ public class ListActivity extends AppCompatActivity {
     private static SharedPreferences.Editor editor;
     private String level;
     private TextView level_name;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     public void onBackPressed() {
@@ -79,6 +84,21 @@ public class ListActivity extends AppCompatActivity {
         jam4=(ImageView)findViewById(R.id.jam4);
         jam5=(ImageView)findViewById(R.id.jam5);
         jam6=(ImageView)findViewById(R.id.jam6);
+
+        floatingActionButton=(FloatingActionButton)findViewById(R.id.floatingActionButtonlist);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Snackbar.make(view, R.string.help_list, Snackbar.LENGTH_LONG).show();
+                Snackbar snackbar=Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.help_list), Snackbar.LENGTH_LONG);
+                TextView tv = (TextView) (snackbar.getView()).findViewById(android.support.design.R.id.snackbar_text);
+                Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Vazir.ttf");
+                tv.setTypeface(font);
+                tv.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                snackbar.show();
+            }
+        });
 
         level_name=(TextView)findViewById(R.id.name_level);
 

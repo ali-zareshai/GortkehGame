@@ -11,6 +11,10 @@
     <string name="pro">پیشرفته</string>
     <string name="javab">جواب ...</string>
     <string name="ok">باشه</string>
+    <string name="tenitem">10 مرحله</string>
+    <string name="twenyitem">20 مرحله</string>
+    <string name="help_list">مرحله مورد نظر خود را انتخاب کنید</string>
+    <string name="help_select">لطفا سطح مورد نظر خود را انتخاب کنید:</string>
     <string name="bye">به امید دیدار... خدانگهدار</string>
     <string name="get_it">فهمیدم</string>
     <string name="help_emtiaz">میزان امتیاز شما</string>

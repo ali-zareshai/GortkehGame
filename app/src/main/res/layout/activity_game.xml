@@ -33,7 +33,7 @@
             android:textColor="#f95dff"
             android:layout_height="wrap_content" />
 
-        <CustomView.CustomTextView
+        <CustomView.CustomTextViewVazir
             android:layout_width="250dp"
             android:paddingBottom="10dp"
             android:id="@+id/numberimgage"
@@ -173,8 +173,7 @@
             android:layout_marginRight="20dp"
             app:fabSize="mini"
             android:src="@drawable/ic_help_black_24dp"
-            android:clickable="true"
-             />
+            android:clickable="true" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

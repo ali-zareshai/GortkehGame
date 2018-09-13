@@ -13,6 +13,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -144,6 +146,34 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mHandler = new Handler();
         showShowCast();
 
+//        javabEdit.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+////
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                checkOnlineJavab(javabEdit.getText().toString());
+//                Log.e("online:","checkkkk");
+////                javabEdit.setText(FormatHelper.toPersianNumber(FormatHelper.toEngNumber(javabEdit.getText().toString())));
+//            }
+//        });
+
+    }
+
+    private void checkOnlineJavab(String s) {
+
+        if (!s.equals("") && s.equals(getJavabFinal)){
+            javabIsTrue();
+            Log.e("string",s);
+            Log.e("online","javab is true");
+        }
     }
 
     private void startCounter(){
@@ -320,6 +350,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 javabEdit.requestFocus();
             }
         });
+        /// show keybord in fouse edittext
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.showSoftInput(javabEdit, InputMethodManager.SHOW_IMPLICIT);
 
 
     }
@@ -511,4 +544,5 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         inputMethodManager.hideSoftInputFromWindow(
                 activity.getCurrentFocus().getWindowToken(), 0);
     }
+
 }
