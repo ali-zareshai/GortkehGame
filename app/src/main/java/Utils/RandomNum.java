@@ -22,17 +22,18 @@ public class RandomNum {
         tehdadArgam= argam;
         level_game=level;
         reset();
+        return passjavab();
+    }
 
-
-       while (true){
-           listAhdadManfi=removeManfi(getRandomAmal());
-           if (javab>0){
-               return listAhdadManfi;
-           }else {
-              reset();
-           }
-       }
-
+    private static List<String> passjavab() {
+        while (true){
+            listAhdadManfi=removeManfi(getRandomAmal());
+            if (javab>0){
+                return listAhdadManfi;
+            }else {
+                reset();
+            }
+        }
     }
 
     private static void reset(){
@@ -117,7 +118,11 @@ public class RandomNum {
             if (ALAMAT.get(x)){
                 sum_(x);
             }else {
-                min_(x);
+                if (min_(x)<0){
+                    reset();
+                    RandomNum.getInit(tehdadArgam,tehdadAhdad,level_game);
+                    break;
+                }
             }
         }
         // reverse list
@@ -126,7 +131,7 @@ public class RandomNum {
 
     }
 
-    private static void min_(int x) {
+    private static int min_(int x) {
         if (x==0){
             javab=numbers.get(0)-numbers.get(1);
             finallist.add(String.valueOf(numbers.get(0)));
@@ -137,6 +142,13 @@ public class RandomNum {
             finallist.add("-");
             finallist.add(String.valueOf(numbers.get(x+1)));
         }
+        return javab;
+//        if (javab<0){
+//            System.out.println(String.valueOf(javab)+"====>"+String.valueOf(x));
+//            reset();
+//            //passjavab();
+//            RandomNum.getInit(tehdadArgam,tehdadAhdad,level_game);
+//        }
 
     }
 

@@ -9,6 +9,7 @@
     <string name="medium">متوسط</string>
     <string name="hard">سخت</string>
     <string name="pro">پیشرفته</string>
+    <string name="help">راهنمایی</string>
     <string name="javab">جواب ...</string>
     <string name="ok">باشه</string>
     <string name="tenitem">10 مرحله</string>
@@ -24,7 +25,7 @@
     <string name="newgame">از نو </string>
     <string name="truejavab">آفرین جواب شما صحیح است</string>
     <string name="badjavab">بیشتر دقت کن</string>
-    <string name="not_access">شما اجازه دسترسی به این مرحله ندارید</string>
+    <string name="not_access">شما اجازه دسترسی به این مرحله را ندارید</string>
     <string name="gorteh">چرتکه</string>
     <string name="gameover">متاسفانه شما بازی را باختید</string>
     <string name="twice_click">برای خروج دوبار فشار دهید</string>

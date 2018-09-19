@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#42b37b"
+    android:background="#2eac6e"
     android:layout_height="match_parent"
     tools:context=".SplashActivity">
     <RelativeLayout
@@ -12,6 +12,7 @@
         <ImageView
             android:layout_width="300dp"
             android:id="@+id/icn1"
+            android:background="#2eac6e"
             android:visibility="invisible"
             android:layout_centerHorizontal="true"
             android:src="@drawable/icon_kor"

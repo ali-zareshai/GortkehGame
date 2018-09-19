@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -13,9 +14,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,7 +51,6 @@ public class ListActivity extends Activity {
     private static SharedPreferences.Editor editor;
     private String level;
     private TextView level_name;
-    private FloatingActionButton floatingActionButton;
 
     @Override
     public void onBackPressed() {
@@ -85,20 +88,8 @@ public class ListActivity extends Activity {
         jam5=(ImageView)findViewById(R.id.jam5);
         jam6=(ImageView)findViewById(R.id.jam6);
 
-        floatingActionButton=(FloatingActionButton)findViewById(R.id.floatingActionButtonlist);
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, R.string.help_list, Snackbar.LENGTH_LONG).show();
-                Snackbar snackbar=Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.help_list), Snackbar.LENGTH_LONG);
-                TextView tv = (TextView) (snackbar.getView()).findViewById(android.support.design.R.id.snackbar_text);
-                Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Vazir.ttf");
-                tv.setTypeface(font);
-                tv.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-                snackbar.show();
-            }
-        });
+
 
         level_name=(TextView)findViewById(R.id.name_level);
 
@@ -125,7 +116,28 @@ public class ListActivity extends Activity {
         recyclerView.setAdapter(listAdapter);
         recyclerView.scrollToPosition(SP.getInt(LevelGame.getLevelSp(level),1)-1);
         setJames();
+        showSnakeHelp();
 
+    }
+
+    private void showSnakeHelp(){
+        Snackbar snackbar=Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.help_list), 2500);
+        View viewSnake = snackbar.getView();
+        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)viewSnake.getLayoutParams();
+        params.gravity = Gravity.TOP;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            viewSnake.setBackgroundColor(getColor(R.color.backsnake));
+        }else {
+            viewSnake.setBackgroundColor(getResources().getColor(R.color.backsnake));
+        }
+        params.setMargins(params.leftMargin,120,params.rightMargin,params.bottomMargin);
+        viewSnake.setLayoutParams(params);
+
+        TextView tv = (TextView) (snackbar.getView()).findViewById(android.support.design.R.id.snackbar_text);
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Vazir.ttf");
+        tv.setTypeface(font);
+        tv.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        snackbar.show();
     }
 
     private void setJames() {

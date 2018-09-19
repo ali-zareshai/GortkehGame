@@ -66,7 +66,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private static final String SHOWCASE_ID = "sequence example";
     private FancyShowCaseQueue fancyShowCaseQueue;
     private CountDownTimerView countDownTimerView;
-    private FloatingActionButton floatingActionButton;
+    private Button floatingActionButton;
 
     @Override
     public void onBackPressed() {
@@ -114,7 +114,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         star2=(ImageView)findViewById(R.id.star2);
         star3=(ImageView)findViewById(R.id.star3);
         countDownTimerView=(CountDownTimerView)findViewById(R.id.mCountDownTimer);
-        floatingActionButton=(FloatingActionButton)findViewById(R.id.floatingActionButton) ;
+        floatingActionButton=(Button) findViewById(R.id.floatingActionButton) ;
 
         SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = SP.edit();
@@ -284,6 +284,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         textView.setTextSize(100);
         ahdad= RandomNum.getInit(Integer.parseInt(argame_),Integer.parseInt(ahdad_),Integer.parseInt(level_));
         getJavabFinal=String.valueOf(RandomNum.getJavab());
+        Log.e("Ahdad::;",String.valueOf(ahdad));
         Log.e("javab >>> ",getJavabFinal);
         setJavabTahih(getJavabFinal);
         loop();
