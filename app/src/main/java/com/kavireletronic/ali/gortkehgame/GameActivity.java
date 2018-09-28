@@ -284,8 +284,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         textView.setTextSize(100);
         ahdad= RandomNum.getInit(Integer.parseInt(argame_),Integer.parseInt(ahdad_),Integer.parseInt(level_));
         getJavabFinal=String.valueOf(RandomNum.getJavab());
-        Log.e("Ahdad::;",String.valueOf(ahdad));
-        Log.e("javab >>> ",getJavabFinal);
+//        Log.e("Ahdad::;",String.valueOf(ahdad));
+//        Log.e("javab >>> ",getJavabFinal);
         setJavabTahih(getJavabFinal);
         loop();
 

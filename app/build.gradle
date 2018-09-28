@@ -39,4 +39,5 @@ dependencies {
     implementation 'com.github.Shashank02051997:FancyGifDialog-Android:1.1'
     implementation 'com.github.anastr:flattimelib:1.0.3'
     implementation 'com.android.support:design:26.1.0'
+    implementation 'com.github.viethoa:customdialogs:3.0.0'
 }

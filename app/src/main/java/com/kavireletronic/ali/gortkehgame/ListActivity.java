@@ -116,12 +116,18 @@ public class ListActivity extends Activity {
         recyclerView.setAdapter(listAdapter);
         recyclerView.scrollToPosition(SP.getInt(LevelGame.getLevelSp(level),1)-1);
         setJames();
-        showSnakeHelp();
+        /// show help in first show avtivity in every game
+        if (SP.getBoolean("help_show_marahreh",true)){
+            showSnakeHelp();
+            editor.putBoolean("help_show_marahreh",false);
+            editor.apply();
+        }
+
 
     }
 
     private void showSnakeHelp(){
-        Snackbar snackbar=Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.help_list), 2500);
+        Snackbar snackbar=Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.help_list), 3000);
         View viewSnake = snackbar.getView();
         FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)viewSnake.getLayoutParams();
         params.gravity = Gravity.TOP;
